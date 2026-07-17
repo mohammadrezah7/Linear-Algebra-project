@@ -1,12 +1,8 @@
 import numpy as np
 
-print("=" * 60)
-print("Question 13")
-print("=" * 60)
-
 
 def randomized_svd(A, rank, n_oversamples=10, n_iter=4, random_state=None):
-   
+    
     rng = np.random.default_rng(random_state)
     d, n = A.shape
     k = min(rank + n_oversamples, n)
@@ -14,10 +10,10 @@ def randomized_svd(A, rank, n_oversamples=10, n_iter=4, random_state=None):
     
     Omega = rng.standard_normal(size=(n, k))
 
-   
+    
     Y = A @ Omega
 
-   
+    
     for _ in range(n_iter):
         Q, _ = np.linalg.qr(Y)
         Z = A.T @ Q
@@ -45,6 +41,10 @@ def randomized_svd(A, rank, n_oversamples=10, n_iter=4, random_state=None):
 
 
 if __name__ == "__main__":
+    print("=" * 60)
+    print("Question 13")
+    print("=" * 60)
+
     
     print("\nSanity check on a synthetic matrix")
     print("-" * 60)
