@@ -3,22 +3,22 @@ from collections import Counter
 import pandas as pd
 import numpy as np
 
-print("=" * 60)
+
 print("Bag of Words")
-print("=" * 60)
+
 
 df = pd.read_csv("processed_dataset.csv")
 words = pd.read_csv("words.csv")
 
-print(f"Dataset shape     : {df.shape}")
-print(f"Vocabulary shape  : {words.shape}")
+print(f"Dataset shape : {df.shape}")
+print(f"Vocabulary shape : {words.shape}")
 vocabulary = words.iloc[:, 0].astype(str).tolist()
 
 print(f"\nVocabulary size : {len(vocabulary)}")
 
-word_to_index = {}
+word_dictionary = {}
 for index ,word in enumerate(vocabulary):
-    word_to_index[word] = index
+    word_dictionary[word] = index
 
 num_documents = len(df)
 num_words = len(vocabulary)
@@ -31,8 +31,8 @@ for i,text in enumerate(df["Processed_Text"]):
     tokens = str(text).split()
     token_counts = Counter(tokens)
     for word,count in token_counts.items():
-        if word in word_to_index:
-            column = word_to_index[word]
+        if word in word_dictionary:
+            column = word_dictionary[word]
             test1[i, column] = count
 
 print("Done.")
@@ -53,16 +53,13 @@ total = test1.size
 density = (non_zero / total) * 100
 
 print("\nMatrix info:")
-print(f"Documents          : {num_documents}")
-print(f"Vocabulary Words   : {num_words}")
-print(f"Matrix Size        : {test1.shape}")
-print(f"Non-zero Elements  : {non_zero}")
-print(f"Density            : {density:.4f}%")
+print(f"Documents : {num_documents}")
+print(f"Vocabulary Words : {num_words}")
+print(f"Matrix Size : {test1.shape}")
+print(f"Non-zero Elements : {non_zero}")
+print(f"Density : {density:.4f}%")
 print("\nFile Generated : Bag of Words")
 
-print("\n" + "=" * 60)
-print("Train / Test Split (Question 10 - continued)")
-print("=" * 60)
 
 bow_train = newdf.iloc[:2000, :].reset_index(drop=True)
 bow_test = newdf.iloc[2000:, :].reset_index(drop=True)
@@ -83,4 +80,3 @@ print(" - bag_of_words_test.csv")
 print(" - processed_dataset_train.csv")
 print(" - processed_dataset_test.csv")
 print("\nNote: the test set is held out and should not be used again")
-print("until the final labeling/accuracy question.")

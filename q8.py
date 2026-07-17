@@ -4,9 +4,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 df = pd.read_csv("processed_dataset.csv")
 
-print("=" * 60)
+
 print("Question 8")
-print("=" * 60)
+
 print(f"Dataset Shape: {df.shape}")
 
 all_text = " ".join(df["Processed_Text"].astype(str))
