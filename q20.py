@@ -27,12 +27,10 @@ print(f"Test documents shape : {bow_test.shape}")
 print(f"Vt_trunc shape        : {Vt_trunc.shape}")
 print(f"Centroids shape       : {means_df.shape}")
 
-# same scaler as Q11, but fitted on the train bag of words only
 scaler = StandardScaler()
 scaler.fit(bow_train.values.astype(float))
 X_test_std = scaler.transform(bow_test.values.astype(float))
 
-# project the standardized test documents into the latent space
 test_vectors = X_test_std @ Vt_trunc.T
 
 category_ids = sorted(LABEL_NAMES.keys())
