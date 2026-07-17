@@ -4,9 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import cosine_similarity
 
-print("=" * 60)
 print("Question 17")
-print("=" * 60)
 
 DOCUMENT_INDEX = 222
 
@@ -24,8 +22,7 @@ document_vectors = U @ np.diag(S)
 word_vectors = Vt.T
 
 print(f"Document Vector Shape : {document_vectors.shape}")
-print(f"Word Vector Shape     : {word_vectors.shape}")
-
+print(f"Word Vector Shape : {word_vectors.shape}")
 
 document_vector = document_vectors[DOCUMENT_INDEX].reshape(1, -1)
 
@@ -34,7 +31,7 @@ document_text = df.loc[DOCUMENT_INDEX, "Processed_Text"]
 tokens = document_text.split()
 
 print(f"\nSelected Document : {DOCUMENT_INDEX}")
-print(f"Number of Words   : {len(tokens)}")
+print(f"Number of Words : {len(tokens)}")
 
 from collections import Counter
 
@@ -45,7 +42,10 @@ frequencies = []
 
 for word in vocabulary:
 
-    word_to_index = {word: i for i, word in enumerate(vocabulary)}
+    word_to_index = {}
+    for i,word in enumerate(vocabulary):
+        word_to_index[word] = i
+
     idx = word_to_index[word]
 
     word_vector = word_vectors[idx].reshape(1, -1)
@@ -58,29 +58,19 @@ for word in vocabulary:
 
 
 result = pd.DataFrame({
-
     "Word": vocabulary,
-
     "Similarity": similarities,
-
     "Frequency": frequencies
-
 })
 
 top_similarity = result.sort_values(
-
     by="Similarity",
-
     ascending=False
-
 ).head(20)
 
 top_frequency = result.sort_values(
-
     by="Frequency",
-
     ascending=False
-
 ).head(20)
 
 print("\nTop Similar Words\n")
@@ -98,7 +88,6 @@ plt.figure(figsize=(10,8))
 plt.barh(
 
     top_similarity["Word"],
-
     top_similarity["Similarity"]
 
 )
@@ -124,7 +113,6 @@ plt.figure(figsize=(10,8))
 plt.barh(
 
     top_frequency["Word"],
-
     top_frequency["Frequency"]
 
 )
@@ -138,7 +126,6 @@ plt.tight_layout()
 plt.savefig(
 
     "images/document_frequency.png",
-
     dpi=300
 
 )
@@ -148,17 +135,6 @@ plt.show()
 result.to_csv(
 
     "document_word_similarity.csv",
-
     index=False
 
 )
-
-print("\nFiles Generated")
-
-print("document_word_similarity.csv")
-
-print("images/document_similarity.png")
-
-print("images/document_frequency.png")
-
-print("\nDone.")

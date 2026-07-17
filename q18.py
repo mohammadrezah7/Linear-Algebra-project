@@ -3,9 +3,7 @@ import pandas as pd
 
 from sklearn.metrics.pairwise import cosine_similarity
 
-print("=" * 60)
 print("Question 18")
-print("=" * 60)
 
 doc_id = 222
 
@@ -44,20 +42,14 @@ print(result)
 result.to_csv("latent_search_result.csv", index=False)
 
 print("\nQuery Document")
-print("-" * 60)
+
 print(df.loc[doc_id, "Processed_Text"])
 
-print("\nRetrieved Documents")
-print("-" * 60)
 
 for i in top_docs:
 
     print(f"\nDocument {i}")
     print(f"Similarity : {scores[i]:.4f}")
-    print(f"Label      : {df.loc[i,'Label']}")
+    print(f"Label : {df.loc[i,'Label']}")
     print(df.loc[i, "Processed_Text"])
-    print("-" * 60)
-
-print("\nFile Generated")
-print("latent_search_result.csv")
-print("\nDone.")
+   

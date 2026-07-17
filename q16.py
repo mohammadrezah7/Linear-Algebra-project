@@ -3,9 +3,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics.pairwise import euclidean_distances
 
-print("=" * 60)
 print("Question 16")
-print("=" * 60)
 
 Vt = np.load("Vt_trunc.npy")
 
@@ -19,35 +17,21 @@ word_to_index = {
 }
 
 word_pairs = [
-
     ("mobile", "technology"),
-
     ("director", "film"),
-
     ("win", "won"),
-
     ("play", "game"),
-
     ("play", "law"),
-
     ("government", "music")
-
 ]
 
 print("\nResults\n")
 
-print("-" * 80)
-
 print(f"{'Word 1':<15}{'Word 2':<15}{'Cosine':<15}{'Euclidean'}")
 
-print("-" * 80)
-
 for w1, w2 in word_pairs:
-
     if w1 not in word_to_index or w2 not in word_to_index:
-
         print(f"{w1:<15}{w2:<15}Not Found")
-
         continue
 
     idx1 = word_to_index[w1]
@@ -66,7 +50,3 @@ for w1, w2 in word_pairs:
         f"{cos:<15.4f}"
         f"{dist:.4f}"
     )
-
-print("-" * 80)
-
-print("\nDone.")
