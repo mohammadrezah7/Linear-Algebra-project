@@ -43,8 +43,8 @@ frequencies = []
 for word in vocabulary:
 
     word_to_index = {}
-    for i,word in enumerate(vocabulary):
-        word_to_index[word] = i
+    for i,w in enumerate(vocabulary):
+        word_to_index[w] = i
 
     idx = word_to_index[word]
 
