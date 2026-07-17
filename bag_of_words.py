@@ -59,3 +59,28 @@ print(f"Matrix Size        : {test1.shape}")
 print(f"Non-zero Elements  : {non_zero}")
 print(f"Density            : {density:.4f}%")
 print("\nFile Generated : Bag of Words")
+
+print("\n" + "=" * 60)
+print("Train / Test Split (Question 10 - continued)")
+print("=" * 60)
+
+bow_train = newdf.iloc[:2000, :].reset_index(drop=True)
+bow_test = newdf.iloc[2000:, :].reset_index(drop=True)
+
+df_train = df.iloc[:2000, :].reset_index(drop=True)
+df_test = df.iloc[2000:, :].reset_index(drop=True)
+
+bow_train.to_csv("bag_of_words_train.csv", index=False)
+bow_test.to_csv("bag_of_words_test.csv", index=False)
+df_train.to_csv("processed_dataset_train.csv", index=False)
+df_test.to_csv("processed_dataset_test.csv", index=False)
+
+print(f"Train set (first 2000 rows) shape : {bow_train.shape}")
+print(f"Test set (remaining rows) shape    : {bow_test.shape}")
+print("\nFiles Generated:")
+print(" - bag_of_words_train.csv")
+print(" - bag_of_words_test.csv")
+print(" - processed_dataset_train.csv")
+print(" - processed_dataset_test.csv")
+print("\nNote: the test set is held out and should not be used again")
+print("until the final labeling/accuracy question.")
