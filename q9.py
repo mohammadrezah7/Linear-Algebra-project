@@ -5,9 +5,8 @@ from wordcloud import WordCloud
 
 df = pd.read_csv("processed_dataset.csv")
 
-print("=" * 60)
 print("Question 9")
-print("=" * 60)
+
 
 print(f"Dataset Shape: {df.shape}")
 

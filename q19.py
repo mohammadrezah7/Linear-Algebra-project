@@ -4,9 +4,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-print("=" * 60)
+from q12 import num
+
 print("Question 19")
-print("=" * 60)
 
 LABEL_NAMES = {
     0: "Politics",
@@ -22,8 +22,8 @@ U_trunc = np.load("U_trunc.npy")
 S_trunc = np.load("S_trunc.npy")
 
 print(f"Train documents shape : {df_train.shape}")
-print(f"U_trunc shape          : {U_trunc.shape}")
-print(f"S_trunc shape          : {S_trunc.shape}")
+print(f"U_trunc shape : {U_trunc.shape}")
+print(f"S_trunc shape : {S_trunc.shape}")
 
 
 document_vectors = U_trunc @ np.diag(S_trunc)
@@ -35,10 +35,6 @@ labels = df_train["Label"].values
 
 os.makedirs("images", exist_ok=True)
 
-print("\n" + "-" * 60)
-print("Average latent-space vector per category")
-print("-" * 60)
-
 category_ids = sorted(LABEL_NAMES.keys())
 category_means = np.zeros((len(category_ids), num_concepts))
 
@@ -49,18 +45,21 @@ for row, label in enumerate(category_ids):
     print(f"{LABEL_NAMES[label]:<15} ({n_docs} train docs) : "
           f"{np.round(category_means[row], 3)}")
 
-concept_cols = [f"C{i + 1}" for i in range(num_concepts)]
-means_df = pd.DataFrame(
+cols = []
+for i in range(num_concepts):
+  cols.append(f"C{i + 1}")
+
+m_df = pd.DataFrame(
     category_means,
     index=[LABEL_NAMES[i] for i in category_ids],
-    columns=concept_cols,
+    columns=cols,
 )
 
-means_df.to_csv("category_mean_latent_vectors.csv")
+m_df.to_csv("category_mean_latent_vectors.csv")
 
 plt.figure(figsize=(10, 5))
 sns.heatmap(
-    means_df,
+    m_df,
     annot=True,
     fmt=".2f",
     cmap="coolwarm",
@@ -74,12 +73,8 @@ plt.tight_layout()
 plt.savefig("images/category_mean_latent_heatmap.png", dpi=300)
 plt.show()
 
-print("\nHeat map saved to images/category_mean_latent_heatmap.png")
-print("Mean vectors saved to category_mean_latent_vectors.csv")
-
-print("\n" + "=" * 60)
 print("Proposed labeling / classification method")
-print("=" * 60)
+
 print("""
 We cannot rely on manually interpreting what each latent concept
 "means" (as attempted, only heuristically, in Question 15) - that
@@ -117,4 +112,3 @@ This method is implemented and evaluated on the held-out test set in
 Question 20.
 """)
 
-print("Done.")
